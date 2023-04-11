@@ -48,7 +48,6 @@ void Game::playTurn() {
     int winner_cardsTaken = 2; // in a turn
     int cardValue1, cardValue2;
     bool is_draw = false;
-    int drawInRow = 0;
     this->last_turn = "";  // reset
 
     do {  // until there is no draw
@@ -56,15 +55,17 @@ void Game::playTurn() {
         if(this->turnsLeft <= 0){
             if (!is_draw)
                 // another turn after the game is over!
-                throw runtime_error("The game is already over! turns left = " + to_string(this->turnsLeft));
+                throw runtime_error("The game is already over!");
             else{
                 // no cards while playing a draw
                 // every player take the cards to himself
-                this->_p1.setCardesTaken(this->_p1.cardesTaken() + drawInRow);
-                this->_p2.setCardesTaken(this->_p2.cardesTaken() + drawInRow);
+                int cardLeft = this->_p1.stacksize();
+                this->_p1.setCardesTaken(this->_p1.cardesTaken() + cardLeft);
+                this->_p2.setCardesTaken(this->_p2.cardesTaken() + cardLeft);
 
-                this->_p1.setStacksize(this->_p1.stacksize()-drawInRow);  // should be 0
-                this->_p2.setStacksize(this->_p2.stacksize()-drawInRow);  // should be 0
+                // no cards have left
+                this->_p1.setStacksize(0);  // should be 0
+                this->_p2.setStacksize(0);  // should be 0
 
                 break;
             }
@@ -108,10 +109,11 @@ void Game::playTurn() {
             // it's a draw
             is_draw = true;
             this->draw_rate++;
-            drawInRow++;
 
-            this->_p1.getCard();  // face-down card
-            this->_p2.getCard(); // face-down card
+            if (this->turnsLeft > 0) {
+                this->_p1.getCard();  // face-down card
+                this->_p2.getCard();
+            }
 
             // updating
             this->turnsLeft -= 2;  // to the identical rank card and to the face-down card
