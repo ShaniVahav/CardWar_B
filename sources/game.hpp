@@ -12,26 +12,28 @@ namespace ariel {}
     private:
         Player & _p1;
         Player & _p2;
-        string last_turn = "";
-        string log = "";
-        int cards_left = 0;
+        string last_turn;
+        string log;
+        int turnsLeft = 0;
+        int draw_rate = 0;
+
 
     public:
         Game(Player & p1, Player & p2);
 
         void playTurn();
 
-        void printLastTurn();
+        void printLastTurn() {cout << this->last_turn << endl;}
 
-        void playAll();
+        void playAll(){ while (this->turnsLeft > 0) { playTurn(); } }
 
         void printWiner();
 
-        void printLog();
+        void printLog() {cout << this->log << endl;}
 
         void printStats();
 
-        string turn_winner(int, int);  // the winner of a turn ("p1" or "p2" or "draw")
+        private: Player & turn_winner(int, int);  // return the winner of the turn
     };
 
 

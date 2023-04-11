@@ -17,11 +17,11 @@ class card {
 
         card(int rank, int suit);
 
-        int getRank();
+        int getRank() const;
 
-        std::string getRank_name();
+        std::string getRank_name() const;
 
-        std::string getSuit_name();
+        std::string getSuit_name() const;
 
         static vector<card>* createDeck();  // creat a deck of cards with 52 cards as usual (without jokers)
 

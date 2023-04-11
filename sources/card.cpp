@@ -10,11 +10,11 @@ card::card(int rank, int suit) {
     this->_suit = suit;
 }
 
-int card::getRank() {
+int card::getRank() const {
     return this->_rank;
 }
 
-string card::getRank_name() {
+string card::getRank_name() const {
     int rank = this->_rank;
     switch (rank) {
         case 11: return "Jack";
@@ -25,15 +25,14 @@ string card::getRank_name() {
     }
 }
 
-string card::getSuit_name() {
+string card::getSuit_name() const {
     int suit = this->_suit;
-    cout << suit << endl;
     switch (suit) {
         case 0: return "Diamonds";
         case 1: return "Clubs";
         case 2: return "Hearts";
         case 3: return "Spades";
-        default: throw std::runtime_error("ERR: suit not exist. suit = " + to_string(suit));
+        default: throw std::runtime_error("ERR: suit not exist");
     }
 }
 

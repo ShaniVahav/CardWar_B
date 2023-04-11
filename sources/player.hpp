@@ -13,21 +13,24 @@ class Player{
         vector<card> cards;
         int stack_size = 0;
         int cards_taken = 0;
+        int win_rate = 0;
 
     public:
-        Player() : _name("") {}
+        Player(string name = "") : _name(std::move(name)) {}
 
-        Player(string);
+        string getName() const {return this->_name;}
 
-        string getName();
+        int stacksize() const {return this->stack_size;}
 
-        int stacksize();
+        void setStacksize(int  num) {this->stack_size = num;}
 
-        void setStacksize(int);
+        int cardesTaken() const {return this->cards_taken;}
 
-        int cardesTaken();
+        void setCardesTaken(int num) {this->cards_taken = num;}
 
-        void setCardesTaken(int);
+        void increase_win_rate() {this->win_rate++;}
+
+        int get_win_rate() const {return this->win_rate;}
 
         void deal_to_player(card &);  // insert a card into the player vec
 
